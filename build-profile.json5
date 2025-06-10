@@ -51,6 +51,14 @@
           ]
         }
       ]
+    },
+    {
+      "name": "xrouter",
+      "srcPath": "./xrouter",
+    },
+    {
+      "name": "sample_library",
+      "srcPath": "./sample_library",
     }
   ]
 }

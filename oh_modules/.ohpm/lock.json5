@@ -26,6 +26,30 @@
     },
     "entry": {
       "name": "entry",
+      "dependencies": {
+        "@victor/xrouter": {
+          "specifier": "file:xrouter",
+          "version": "file:xrouter"
+        }
+      },
+      "devDependencies": {},
+      "dynamicDependencies": {},
+      "maskedByOverrideDependencyMap": false
+    },
+    "sample_library": {
+      "name": "sample_library",
+      "dependencies": {
+        "@victor/xrouter": {
+          "specifier": "file:xrouter",
+          "version": "file:xrouter"
+        }
+      },
+      "devDependencies": {},
+      "dynamicDependencies": {},
+      "maskedByOverrideDependencyMap": false
+    },
+    "xrouter": {
+      "name": "xrouter",
       "dependencies": {},
       "devDependencies": {},
       "dynamicDependencies": {},
@@ -48,6 +72,14 @@
       "dependencies": {},
       "dynamicDependencies": {},
       "dev": true,
+      "dynamic": false,
+      "maskedByOverrideDependencyMap": false
+    },
+    "@victor/xrouter@file:xrouter": {
+      "storePath": "xrouter",
+      "dependencies": {},
+      "dynamicDependencies": {},
+      "dev": false,
       "dynamic": false,
       "maskedByOverrideDependencyMap": false
     }
