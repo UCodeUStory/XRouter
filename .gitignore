@@ -5,3 +5,4 @@
 oh-package-lock.json5
 **/.test
 
+.DS_Store
