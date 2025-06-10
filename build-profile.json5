@@ -1,0 +1,56 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/qiyue/.ohos/config/default_xrouter_BxPf6yrASEb5cEYobbWwrxXPoY9e2NAlVX5GGH32Gm4=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A693BAC599F3EEA671431DAFAA0033F5BD5536829F10733DB82914F4A8D8A031B1D5CE0C80F86",
+          "profile": "/Users/qiyue/.ohos/config/default_xrouter_BxPf6yrASEb5cEYobbWwrxXPoY9e2NAlVX5GGH32Gm4=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/qiyue/.ohos/config/default_xrouter_BxPf6yrASEb5cEYobbWwrxXPoY9e2NAlVX5GGH32Gm4=.p12",
+          "storePassword": "0000001A3AE3C1B5EE2FF021EC7B543982E5F20CB903E8D62D17FE96F1D65AD4A739AB452C1FEDE21902"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "targetSdkVersion": "5.0.5(17)",
+        "compatibleSdkVersion": "5.0.5(17)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}
