@@ -2,56 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44d19b93-78da-4cf2-b265-0f495a31b984" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/entry/src/main/ets/pages/Second.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entry/xrouter-model.ts.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/Index.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/build-profile.json5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/consumer-rules.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/hvigorfile.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/obfuscation-rules.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/oh-package.json5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/src/main/ets/components/MainPage.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/src/main/module.json5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/src/main/resources/base/element/float.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/src/main/resources/base/element/string.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/src/ohosTest/ets/test/Ability.test.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/src/ohosTest/ets/test/List.test.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/src/ohosTest/module.json5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/src/test/List.test.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample_library/src/test/LocalUnit.test.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/Index.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/build-profile.json5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/consumer-rules.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/hvigorfile.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/obfuscation-rules.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/oh-package.json5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/main/ets/XRouter.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/main/ets/XRouterManager.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/main/ets/XRouterNavigator.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/main/module.json5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/main/resources/base/element/float.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/main/resources/base/element/string.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/ohosTest/ets/test/Ability.test.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/ohosTest/ets/test/List.test.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/ohosTest/module.json5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/test/List.test.ets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xrouter/src/test/LocalUnit.test.ets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.hvigor/cache/file-cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/.hvigor/cache/file-cache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.hvigor/cache/task-cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/.hvigor/cache/task-cache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.hvigor/dependencyMap/dependencyMap.json5" beforeDir="false" afterPath="$PROJECT_DIR$/.hvigor/dependencyMap/dependencyMap.json5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.hvigor/dependencyMap/entry/oh-package.json5" beforeDir="false" afterPath="$PROJECT_DIR$/.hvigor/dependencyMap/entry/oh-package.json5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.hvigor/outputs/build-logs/build.log" beforeDir="false" afterPath="$PROJECT_DIR$/.hvigor/outputs/build-logs/build.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.hvigor/outputs/logs/details/details.json" beforeDir="false" afterPath="$PROJECT_DIR$/.hvigor/outputs/logs/details/details.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.hvigor/outputs/sync/fileCache.json" beforeDir="false" afterPath="$PROJECT_DIR$/.hvigor/outputs/sync/fileCache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.hvigor/outputs/sync/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/.hvigor/outputs/sync/output.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build-profile.json5" beforeDir="false" afterPath="$PROJECT_DIR$/build-profile.json5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entry/hvigorfile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/entry/hvigorfile.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entry/oh-package.json5" beforeDir="false" afterPath="$PROJECT_DIR$/entry/oh-package.json5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hvigor/hvigor-config.json5" beforeDir="false" afterPath="$PROJECT_DIR$/hvigor/hvigor-config.json5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oh_modules/.ohpm/lock.json5" beforeDir="false" afterPath="$PROJECT_DIR$/oh_modules/.ohpm/lock.json5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entry/xrouter-model.ts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/entry/xrouter-model.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

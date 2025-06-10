@@ -6,7 +6,7 @@ import * as path from 'path';
 import json5 from 'json5'
 import { Project, SyntaxKind, ScriptTarget, StructureKind, ScriptKind } from "ts-morph";
 import * as crypto from 'crypto';
-import { RouteModel, XModule, SearchContext } from './xrouter-model.ts'
+import { RouteModel, XModule, SearchContext } from './xrouter-model'
 
 export default {
     system: hapTasks,
