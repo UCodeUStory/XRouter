@@ -1,23 +1,28 @@
+import { XRouterManager, XRouterNavigator } from '@victor/xrouter';
+import { XRouterConfig } from '../gen/XRouterConfig';
+
 @Entry
 @Component
 struct Index {
   @State message: string = 'Hello World';
+  pageInfos:NavPathStack = new NavPathStack()
+
+  aboutToAppear(): void {
+    XRouterManager.getInstance().bindNavPathStack(this.pageInfos)
+    XRouterManager.getInstance().bindRouteConfig(XRouterConfig.initialize)
+  }
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('HelloWorld')
-        .fontSize($r('app.float.page_text_font_size'))
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
-        })
-        .onClick(() => {
-          this.message = 'Welcome';
-        })
-    }
-    .height('100%')
-    .width('100%')
+    Navigation(this.pageInfos){
+      NavDestination(){
+        Button('测试').onClick(()=>{
+          XRouterNavigator.push('native://second')
+        }).margin(50)
+      }
+    }.navDestination(this.pageBuilder)
+  }
+  @Builder
+  pageBuilder(name:string,paramMap:Map<string,Object>){
+    XRouterManager.getInstance().get(name)?.builder()
   }
 }

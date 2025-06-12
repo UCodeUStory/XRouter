@@ -24,7 +24,7 @@ function XRouterPlugin(): HvigorPlugin {
                 postDependencies: ['default@CreateBuildProfile'],
                 run: (taskContext) => {
                     const startTime = Date.now();
-                    console.log('taskContext.modulePath', taskContext.modulePath)
+                    // console.log('taskContext.modulePath', taskContext.modulePath)
                     const projectRootDir = path.dirname(taskContext.modulePath);
                     const entryDir = taskContext.modulePath;
                     const searchContext = new SearchContext();
