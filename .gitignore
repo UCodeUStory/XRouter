@@ -6,3 +6,4 @@ oh-package-lock.json5
 **/.test
 
 .DS_Store
+/xrouter-plugin/node_modules
