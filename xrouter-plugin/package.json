@@ -1,0 +1,19 @@
+{
+  "name": "xrouter-plugin",
+  "version": "1.0.3",
+  "description": "路由生成插件",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@ohos/hvigor": "5.2.2",
+    "@types/node": "^24.0.1"
+  },
+  "dependencies": {
+    "json5": "^2.2.3",
+    "ts-morph": "^26.0.0"
+  }
+}

@@ -1,0 +1,1 @@
+export { XRouterPlugin } from './src/plugin/xrouter-plugin';
