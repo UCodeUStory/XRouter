@@ -10,4 +10,5 @@ TODO
 6. xrouter 发布
 7. README 编写
 8. CHANGELOG
-9. 
+9. 源码依赖module引入名字可能会自定义，是否提供配置参数？
+10. 
