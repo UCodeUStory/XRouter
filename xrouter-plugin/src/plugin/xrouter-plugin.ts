@@ -34,11 +34,14 @@ export function XRouterPlugin(): HvigorPlugin {
                     //清除无效的缓存代码
                     clearGenerateFiles(searchContext)
                     //生成路由初始化代码
-                    genXRouterInitialize(searchContext)
-                    // //生成统一配置文件
+                    generateNewRouteInitializeFiles(searchContext)
+                    //检查一下历史路由文件
+                    generateCacheRouteInitializeFiles(searchContext)
+                    //生成统一配置文件
                     genXRouterConfig(searchContext)
                     //写入缓存文件
                     writeCacheFile(searchContext)
+
 
                     console.log('插件执行耗时：' + (Date.now() - startTime) + '毫秒');
                 },
@@ -54,19 +57,20 @@ function readCacheFile(searchContext: SearchContext) {
     try {
         const cacheFile = path.join(cacheDir, CACHE_FILE);
         const fileContent = fs.readFileSync(cacheFile, 'utf8');
-        const fileHashMap = new Map(Object.entries(JSON.parse(fileContent)));
-        searchContext.cacheFileMaps = fileHashMap
+        const fileCaches = new Map(Object.entries(JSON.parse(fileContent)));
+        searchContext.fileCaches = fileCaches
     } catch (e) {
-        searchContext.cacheFileMaps = new Map();
+        searchContext.fileCaches = new Map();
+        // searchContext.cacheFileMaps = new Map();
     }
 
     try {
-        const modelCacheFile = path.join(cacheDir, MODEL_CACHE_FILE)
-        const modelCacheContent = fs.readFileSync(modelCacheFile, 'utf8');
-        const modelCacheFileArray = JSON.parse(modelCacheContent);
-        searchContext.modelCacheFileArray = modelCacheFileArray
+        const routeModelCacheFile = path.join(cacheDir, MODEL_CACHE_FILE)
+        const routeModelCachesStringContent = fs.readFileSync(routeModelCacheFile, 'utf8');
+        const routeModelCaches = JSON.parse(routeModelCachesStringContent);
+        searchContext.routeModelCaches = routeModelCaches
     } catch (e) {
-        searchContext.modelCacheFileArray = []
+        searchContext.routeModelCaches = []
         // console.log('modelCacheContent read failed',e)
     }
 
@@ -80,12 +84,12 @@ function writeCacheFile(searchContext: SearchContext) {
     const cacheFile = path.join(cacheDir, CACHE_FILE);
 
     // 写入文件（将 Map 转为可序列化的对象）
-    const serializableMap = Object.fromEntries(searchContext.scanFileMaps);
+    const serializableMap = Object.fromEntries(searchContext.currentScanFiles);
     fs.writeFileSync(cacheFile, JSON.stringify(serializableMap), { encoding: 'utf8' });
 
     const modelCacheFile = path.join(cacheDir, MODEL_CACHE_FILE)
 
-    const mergeResult = [... searchContext.modelCacheFileArray,...searchContext.scanRouteModelResult]
+    const mergeResult = searchContext.allRouteModels()
     fs.writeFileSync(modelCacheFile, JSON.stringify(mergeResult), { encoding: 'utf8' });
 
     console.log('写入缓存文件耗时：' + (Date.now() - startTime) + '毫秒')
@@ -123,15 +127,17 @@ String.prototype.capitalize = function () {
 
 function clearGenerateFiles(searchContext: SearchContext) {
     const xRouterGenDir = path.join(searchContext.entryDir, GEN_DIR)
+    console.log(">>xRouterGenDir",xRouterGenDir)
     const scanFileHashSet = new Set();
-    searchContext.scanFileMaps.forEach((value, key) => {
+    //所有扫描过的文件
+    searchContext.currentScanFiles.forEach((value, key) => {
         scanFileHashSet.add(value)
     })
     // console.log(">>hash",scanFileHashSet)
 
 
-    // 过滤掉不再存在的模型
-    searchContext.modelCacheFileArray = searchContext.modelCacheFileArray.filter((m: any) => {
+    // 过滤掉不存在的RouterModel缓存
+    searchContext.routeModelCaches = searchContext.routeModelCaches.filter((m: any) => {
         if (!scanFileHashSet.has(m.fileHash)) {
             console.log('删除fileHash', m.fileHash);
 
@@ -155,15 +161,17 @@ function clearGenerateFiles(searchContext: SearchContext) {
 
 }
 
-function genXRouterInitialize(searchContext: SearchContext) {
-
-    const startTime = Date.now();
+function getRouteGenerateDir(searchContext: SearchContext) {
     const entryName = path.basename(searchContext.entryDir);
     const xRouterGenDir = path.join(searchContext.entryDir, GEN_DIR)
     fs.mkdirSync(xRouterGenDir, { recursive: true });
-    for (let routeModel of searchContext.scanRouteModelResult) {
+    return xRouterGenDir;
+}
+
+function generateRouteInitializeFiles(getRouteGenerateDir:string,entryName:string,routeModels: Array<RouteModel>) {
+    for (let routeModel of routeModels) {
         const xRouterInitializeFile =
-            path.join(xRouterGenDir,
+            path.join(getRouteGenerateDir,
                 `XRouter${(routeModel.host ?? DEFAULT_HOST).capitalize()}${routeModel.path.capitalize()}Initialize.ets`)
         let packagePath = ''
         if (routeModel.group !== 'source') {
@@ -191,10 +199,34 @@ function init(){
 
 init()`
         fs.writeFileSync(xRouterInitializeFile, xRouterInitializeCode, { encoding: 'utf8' });
-        const endTime = Date.now();
-        const totalTime = endTime - startTime;
-        console.log('genXRouterInitialize耗时：' + totalTime + '毫秒');
+
     }
+}
+
+function generateNewRouteInitializeFiles(searchContext: SearchContext) {
+    const startTime = Date.now();
+    const generateDir = getRouteGenerateDir(searchContext);
+    const entryName = path.basename(searchContext.entryDir);
+    generateRouteInitializeFiles(generateDir,entryName,searchContext.currentScanNewRouteModels)
+    console.log('generateNewRouteInitializeFiles耗时：' + (Date.now() - startTime) + '毫秒');
+}
+//因为有可能被意外删除，所以要判断文件是否存在，重新生成
+function generateCacheRouteInitializeFiles(searchContext: SearchContext) {
+    const startTime = Date.now();
+    const generateDir = getRouteGenerateDir(searchContext);
+    const entryName = path.basename(searchContext.entryDir);
+    const loseRouteModel = []
+    for (let routeModel of searchContext.routeModelCaches) {
+        const xRouterInitializeFile =
+            path.join(generateDir,
+                `XRouter${(routeModel.host ?? DEFAULT_HOST).capitalize()}${routeModel.path.capitalize()}Initialize.ets`)
+        if (!fs.existsSync(xRouterInitializeFile)) {
+            loseRouteModel.push(routeModel)
+        }
+    }
+    generateRouteInitializeFiles(generateDir,entryName,loseRouteModel)
+
+    console.log('generateNewRouteInitializeFiles耗时：' + (Date.now() - startTime) + '毫秒');
 }
 
 function genXRouterConfig(searchContext: SearchContext) {
@@ -202,9 +234,9 @@ function genXRouterConfig(searchContext: SearchContext) {
     const xRouterGenDir = path.join(searchContext.entryDir, 'src/main/ets/gen')
     //TODO xRouterGenDir下创建XRouterConfig.ets 文件,并写入相关内容
     const xRouterConfigFile = path.join(xRouterGenDir, 'XRouterConfig.ets')
-    const mergeResult = [...searchContext.scanRouteModelResult,...searchContext.modelCacheFileArray]
+    const allRouteModels = searchContext.allRouteModels()
     let insertCodes = ''
-    mergeResult.forEach(routeModel => {
+    allRouteModels.forEach(routeModel => {
         const insertCode = `
       case '${routeModel.host ?? DEFAULT_HOST}://${routeModel.path}':
         await import('./XRouter${(routeModel.host ?? DEFAULT_HOST).capitalize()}${routeModel.path.capitalize()}Initialize')
@@ -237,9 +269,9 @@ function findXRouterModels(searchContext: SearchContext) {
         // console.log("libraryResult=", libraryResult)
         const sourceResult = findXRouterPageBySource(searchContext)
         // console.log("sourceResult=", sourceResult)
-        searchContext.scanRouteModelResult = [...libraryResult, ...sourceResult]
+        searchContext.currentScanNewRouteModels = [...libraryResult, ...sourceResult]
     } catch (e) {
-        searchContext.scanRouteModelResult = []
+        searchContext.currentScanNewRouteModels = []
         // console.log('findXRouterModels failed：', e)
     }
     console.log('findXRouterModels耗时：' + (Date.now() - startTime) + '毫秒')
@@ -311,13 +343,13 @@ function findXRouterPageByPath(searchContext: SearchContext, group: string, modu
         //TODO以下内容比较耗时，所以想文件没有变动情况下就不再重新解析
         const hash = getFileHash(currentPath)
 
-        // console.log('searchContext.cacheFileMaps',searchContext.cacheFileMaps)
-        if (searchContext.cacheFileMaps.get(currentPath) === hash) {
+        // console.log('searchContext.fileCaches',searchContext.fileCaches)
+        if (searchContext.fileCaches.get(currentPath) === hash) {
             // console.log('已经解析过', currentPath, 'hash=', hash)
-            searchContext.scanFileMaps.set(currentPath, hash);
+            searchContext.currentScanFiles.set(currentPath, hash);
             return;
         }
-        searchContext.scanFileMaps.set(currentPath, hash);
+        searchContext.currentScanFiles.set(currentPath, hash);
         const routeModel = parseRouteModel(searchContext.projectRootDir, currentPath)
         if (routeModel) {
             routeModel.group = group;
