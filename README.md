@@ -14,7 +14,12 @@
 
 ### 步骤1：安装说明
 ```
-   1.1 在 hvigor-config.json5中添加插件-> "xrouter-plugin": "1.0.3",
+   1.1 在 hvigor-config.json5中添加插件-> "xrouter-plugin": "1.0.3", 
+     配置插件：
+     export default {
+       system: hapTasks,
+       plugins: [XRouterPlugin()]
+     }
    1.2 安装依赖-> ohpm install @victor/xrouter
 ```
 
