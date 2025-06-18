@@ -53,19 +53,18 @@ XRouterConfig 是动态生成的类，先执行Rebuild project 生成这个信�
 
 1.在页面上添加注解定义
 ```
-//host 可以不传，默认是native
-@XRouter({host:'native',path:'demo'})
-@Component
-export struct Demo {
-  @State message: string = 'Hello World';
-
-  build() {
-    NavDestination(){
-      Text("Demo page")
+  //host 可以不传，默认是native
+  @XRouter({host:'native',path:'demo'})
+  @Component
+  export struct Demo {
+    @State message: string = 'Hello World';
+  
+    build() {
+      NavDestination(){
+        Text("Demo page")
+      }
     }
   }
-}
-
 ```
 2.跳转
 ```
