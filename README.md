@@ -27,6 +27,7 @@
   aboutToAppear(): void {
     //1 绑定路由
     XRouterManager.getInstance().bindNavPathStack(this.pageInfos)
+    //XRouteConfig 需要rebuild Project 动态生成一下
     XRouterManager.getInstance().bindRouteConfig(XRouterConfig.initialize)
   }
 
@@ -45,8 +46,8 @@
 ```
 
 ###  步骤3：生成路由配置信息
-XRouterConfig 是动态生成的类，先执行Rebuild project 生成这个信息配置
 
+   ``XRouterConfig 是动态生成的类，先执行Rebuild project 生成这个信息配置``
 
 
 ### 步骤4：路由定义及使用
