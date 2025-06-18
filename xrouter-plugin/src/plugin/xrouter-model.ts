@@ -1,16 +1,8 @@
 export class SearchContext {
-  //默认主机
-  readonly DEFAULT_HOST = 'native'
-  //route 代码生成目录
-  static readonly GEN_DIR = 'src/main/ets/gen'
-  //缓存文件
-  readonly CACHE_FILE = 'xrouter_cache.json'
-  //route缓存
-  readonly MODEL_CACHE_FILE = 'xrouter_model_cache.json'
 
-  projectRootDir: string;
+  readonly projectRootDir: string;
 
-  entryDir: string;
+  readonly entryDir: string;
   //文件缓存
   fileCaches: Map<string, string>;
   //路由缓存
@@ -24,6 +16,11 @@ export class SearchContext {
     const m = [...this.routeModelCaches, ...this.currentScanNewRouteModels];
     // console.log("merge",m)
     return m;
+  }
+
+  constructor(projectRootDir: string, entryDir: string) {
+    this.projectRootDir = projectRootDir;
+    this.entryDir = entryDir;
   }
 }
 
