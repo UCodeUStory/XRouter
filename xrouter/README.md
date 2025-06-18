@@ -1,8 +1,5 @@
 # Harmony XRouter 
 
-
-[![XRouter is released under the Apache 2.0 license.](https://img.shields.io/badge/License-Apache%202.0-blue)](https://github.com/UCodeUStory/S-MVP/blob/master/LICENSE)
-
 ## 介绍
 一个鸿蒙动态路由框架，可以非常方便的实现组件之间的跳转，方便组件的解耦
 
