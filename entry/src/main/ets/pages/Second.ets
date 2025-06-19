@@ -8,6 +8,10 @@ export struct Second {
   @XRouteParam()
   pageParam?:Object
 
+  aboutToAppear(): void {
+    console.log("aboutToAppear="+JSON.stringify(this.pageParam))
+  }
+
   build() {
     NavDestination(){
       Text("second page")

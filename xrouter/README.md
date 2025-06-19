@@ -1,7 +1,7 @@
 # Harmony XRouter 
 
 ## 介绍
-一个鸿蒙动态路由框架，基于Navigation的，可以非常方便的实现组件之间的跳转，方便组件的解耦
+一个鸿蒙动态路由框架，基于Navigation的路由框架，可以非常方便的使用注解注册，就能实现组件之间的跳转，方便组件的解耦
 
 ## 系统环境
 - HarmonyOS 5.0.0
@@ -14,7 +14,7 @@
 
 ### 步骤1：安装说明
 ```
-   1.1 在 hvigor-config.json5中添加插件-> "xrouter-plugin": "1.0.3", 
+   1.1 在 hvigor-config.json5中添加插件-> "xrouter-plugin": "1.0.9", 
      配置插件：
      export default {
        system: hapTasks,
@@ -43,10 +43,10 @@
       }
     }.navDestination(this.pageBuilder)
   }
-  //2 绑定路由构建器
+   //2 绑定路由构建器
   @Builder
-  pageBuilder(name:string,paramMap:Map<string,Object>){
-    XRouterManager.getInstance().get(name)?.builder()
+  pageBuilder(name: string, param: Object) {
+    XRouterManager.getInstance().get(name)?.builder(param)
   }
 ```
 
@@ -63,7 +63,9 @@
   @XRouter({host:'native',path:'demo'})
   @Component
   export struct Demo {
-    @State message: string = 'Hello World';
+    
+    @XRouteParam() //配置参数
+    pageParam?:Object
   
     build() {
       NavDestination(){
@@ -74,6 +76,6 @@
 ```
 2.跳转
 ```
-XRouterNavigator.push('native://demo')
+XRouterNavigator.push('native://demo',123)
 ```
 

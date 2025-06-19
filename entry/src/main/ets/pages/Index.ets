@@ -5,24 +5,24 @@ import { XRouterConfig } from '../gen/XRouterConfig';
 @Component
 struct Index {
   @State message: string = 'Hello World';
-  pageInfos:NavPathStack = new NavPathStack()
+  pageInfos: NavPathStack = new NavPathStack()
 
   aboutToAppear(): void {
-    XRouterManager.getInstance().bindNavPathStack(this.pageInfos)
-    XRouterManager.getInstance().bindRouteConfig(XRouterConfig.initialize)
+    XRouterManager.getInstance().bindNavPathStack(this.pageInfos).bindRouteConfig(XRouterConfig.initialize)
   }
 
   build() {
-    Navigation(this.pageInfos){
-      NavDestination(){
-        Button('测试').onClick(()=>{
-          XRouterNavigator.push('native://second',123)
+    Navigation(this.pageInfos) {
+      NavDestination() {
+        Button('测试').onClick(() => {
+          XRouterNavigator.push('native://second')
         }).margin(50)
       }
     }.navDestination(this.pageBuilder)
   }
+
   @Builder
-  pageBuilder(name:string,param:Object){
+  pageBuilder(name: string, param: Object) {
     XRouterManager.getInstance().get(name)?.builder(param)
   }
 }
