@@ -92,7 +92,7 @@ class XRouterGenerator {
       }
 
       const xRouterInitializeCode = `
-import { XRouterManager } from "@victor/xrouter"
+import { XRouterManager } from "@ustory/xrouter"
 import { ${routeModel.pageName} } from "${packagePath}"
 
 @Builder
