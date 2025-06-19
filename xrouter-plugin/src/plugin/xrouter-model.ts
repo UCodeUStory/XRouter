@@ -48,8 +48,10 @@ export class RouteModel {
   srcPath: string
   //TODO 分析出Page 参数
   prop: string
-  //  文件hash
+  // 文件hash
   fileHash: string
+  // 页面参数
+  paramName: string
 
   constructor() {
   }

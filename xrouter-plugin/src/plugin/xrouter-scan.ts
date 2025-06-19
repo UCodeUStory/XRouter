@@ -200,6 +200,19 @@ class XRouterScanner {
       return undefined;
     }
 
+    //获取参数
+    const allProp = componentClass.getProperties();
+    for (const prop of allProp) {
+      const decorators = prop.getDecorators();
+      for (const decorator of decorators) {
+        if (decorator.getName() === 'RouterParam') {
+          const paramName = prop.getName();
+          // console.log('RouterParam>>>> 找到了',paramName)
+          routeModel.paramName = paramName;
+        }
+      }
+    }
+
     // 获取装饰器参数对象
     const args = xRouterDecorator.getArguments();
     if (args.length === 0) {

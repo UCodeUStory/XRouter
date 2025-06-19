@@ -11,7 +11,7 @@ String.prototype.capitalize = function () {
 
 
 export class GenerateRoutesHandler extends AbstractXRouterHandler {
-  protected  doHandle(searchContext: SearchContext): void {
+  protected doHandle(searchContext: SearchContext): void {
     const generator = new XRouterGenerator(searchContext);
     generator.generate()
     this.process(searchContext)
@@ -91,20 +91,35 @@ class XRouterGenerator {
         }
       }
 
-      const xRouterInitializeCode = `
-import { XRouterManager } from "@ustory/xrouter"
+      let xRouterInitializeCode = `
+import { XRouterManager } from "@victor/xrouter"
 import { ${routeModel.pageName} } from "${packagePath}"
-
+`;
+      const noParam = `
 @Builder
 function XRouterBuilder() {
   ${routeModel.pageName}()
 }
+`
+      const withParam = `
+@Builder
+function XRouterBuilder(param:Object) {
+  ${routeModel.pageName}({${routeModel.paramName}: param})
+}
+`
+      if (routeModel.paramName) {
+        xRouterInitializeCode += withParam
+      } else {
+        xRouterInitializeCode += noParam
+      }
 
+      const after = `
 function init(){
-  XRouterManager.getInstance().register('${routeModel.host ?? DEFAULT_HOST}://${routeModel.path}', wrapBuilder<[]>(XRouterBuilder))
+  XRouterManager.getInstance().register('${routeModel.host ?? DEFAULT_HOST}://${routeModel.path}', wrapBuilder<Object[]>(XRouterBuilder))
 }
 
 init()`
+      xRouterInitializeCode += after
       fs.writeFileSync(xRouterInitializeFile, xRouterInitializeCode, { encoding: 'utf8' });
 
     }
