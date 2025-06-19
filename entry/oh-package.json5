@@ -6,7 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@victor/xrouter": "file:../xrouter",
+    "@ustory/xrouter": "file:../xrouter",
     "sample_library": "file:../sample_library"
   }
 }

@@ -1,5 +1,5 @@
 
-import { XRouterManager } from "@victor/xrouter"
+import { XRouterManager } from "@ustory/xrouter"
 import { MainPage } from "sample_library/src/main/ets/components/MainPage"
 
 @Builder

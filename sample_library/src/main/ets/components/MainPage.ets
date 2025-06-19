@@ -1,4 +1,4 @@
-import { XRouter } from "@victor/xrouter";
+import { XRouter } from "@ustory/xrouter";
 
 @XRouter({path:'MainPage'})
 @Component

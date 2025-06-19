@@ -1,4 +1,4 @@
-import { XRouterManager, XRouterNavigator } from '@victor/xrouter';
+import { XRouterManager, XRouterNavigator } from '@ustory/xrouter';
 import { XRouterConfig } from '../gen/XRouterConfig';
 
 @Entry

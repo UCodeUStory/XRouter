@@ -1,5 +1,5 @@
 
-import { XRouterManager } from "@victor/xrouter"
+import { XRouterManager } from "@ustory/xrouter"
 import { Second } from "../pages/Second"
 
 @Builder
