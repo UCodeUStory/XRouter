@@ -16,13 +16,13 @@ struct Index {
     Navigation(this.pageInfos){
       NavDestination(){
         Button('测试').onClick(()=>{
-          XRouterNavigator.push('native://second')
+          XRouterNavigator.push('native://second',123)
         }).margin(50)
       }
     }.navDestination(this.pageBuilder)
   }
   @Builder
-  pageBuilder(name:string,paramMap:Object){
+  pageBuilder(name:string,param:Object){
     XRouterManager.getInstance().get(name)?.builder(param)
   }
 }

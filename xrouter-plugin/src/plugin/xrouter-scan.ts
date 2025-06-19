@@ -205,9 +205,9 @@ class XRouterScanner {
     for (const prop of allProp) {
       const decorators = prop.getDecorators();
       for (const decorator of decorators) {
-        if (decorator.getName() === 'RouterParam') {
+        if (decorator.getName() === 'XRouteParam') {
           const paramName = prop.getName();
-          // console.log('RouterParam>>>> 找到了',paramName)
+          // console.log('XRouteParam>>>> 找到了',paramName)
           routeModel.paramName = paramName;
         }
       }

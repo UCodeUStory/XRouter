@@ -11,7 +11,7 @@ export function XRouter(option: XRouterOption): ClassDecorator {
   }
 }
 
-export function RouterParam(): PropertyDecorator {
+export function XRouteParam(): PropertyDecorator {
   console.log(` PropertyDecorator`);
   return () => {
   }

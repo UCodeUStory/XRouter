@@ -1,5 +1,4 @@
-
-export { XRouter } from './src/main/ets/XRouter'
+export { XRouter, XRouteParam } from './src/main/ets/XRouter'
 
 export { XRouterManager } from './src/main/ets/XRouterManager'
 
