@@ -22,7 +22,7 @@ struct Index {
     }.navDestination(this.pageBuilder)
   }
   @Builder
-  pageBuilder(name:string,paramMap:Map<string,Object>){
-    XRouterManager.getInstance().get(name)?.builder()
+  pageBuilder(name:string,paramMap:Object){
+    XRouterManager.getInstance().get(name)?.builder(param)
   }
 }

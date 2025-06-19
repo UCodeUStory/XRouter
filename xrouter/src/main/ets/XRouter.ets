@@ -10,3 +10,9 @@ export function XRouter(option: XRouterOption): ClassDecorator {
   return () => {
   }
 }
+
+export function RouterParam(): PropertyDecorator {
+  console.log(` PropertyDecorator`);
+  return () => {
+  }
+}
