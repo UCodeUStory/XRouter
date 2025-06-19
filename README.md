@@ -64,7 +64,7 @@
   @Component
   export struct Demo {
     
-    @XRouteParam() //配置参数
+    @XRouteParam() //路由参数，注意：只能声明一个
     pageParam?:Object
   
     build() {
