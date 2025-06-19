@@ -1,9 +1,11 @@
 {
   "name": "@ustory/xrouter",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "一个简单好用的动态路由框架",
   "main": "Index.ets",
-  "author": "",
+  "author": "UCodeUStory",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/UCodeUStory",
+  "repository": "https://github.com/UCodeUStory/XRouter",
   "dependencies": {}
 }

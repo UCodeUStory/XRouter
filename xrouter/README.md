@@ -20,7 +20,7 @@
        system: hapTasks,
        plugins: [XRouterPlugin()]
      }
-   1.2 安装依赖-> ohpm install @victor/xrouter
+   1.2 安装依赖-> ohpm install @ustory/xrouter
 ```
 
 ### 步骤2：初始化路由
