@@ -69,13 +69,15 @@ class XRouterCache {
 
     const cacheDir = this.getCacheDir(this.searchContext.projectRootDir);
     const cacheFile = path.join(cacheDir, CACHE_FILE);
+    const mergeResult = this.searchContext.allRouteModels()
+    this.checkDupRouter(mergeResult)
 
     // 写入文件（将 Map 转为可序列化的对象）
     const serializableMap = Object.fromEntries(this.searchContext.currentScanFiles);
     fs.writeFileSync(cacheFile, JSON.stringify(serializableMap), { encoding: 'utf8' });
 
     const modelCacheFile = path.join(cacheDir, MODEL_CACHE_FILE)
-    const mergeResult = this.searchContext.allRouteModels()
+
     fs.writeFileSync(modelCacheFile, JSON.stringify(mergeResult), { encoding: 'utf8' });
 
     console.log('写入缓存文件耗时：' + (Date.now() - startTime) + '毫秒')
@@ -90,5 +92,23 @@ class XRouterCache {
 
   private getCacheDir(projectRootDir: string) {
     return path.join(projectRootDir, '.cache');
+  }
+
+  private checkDupRouter(mergeResult: Array<RouteModel>) {
+    let isDup = false;
+    const checkDupSet = new Set();
+    mergeResult.forEach(model => {
+      const router = model.host + "://" + model.path;
+      if (checkDupSet.has(router)) {
+        console.error('重复的路由为：' + router);
+        isDup = true;
+      } else {
+        checkDupSet.add(router);
+      }
+    });
+    if (isDup) {
+      console.error('路由重复，生成路由失败,请检查！！！！');
+      throw Error('路由重复，生成路由失败,请检查！！！！');
+    }
   }
 }
