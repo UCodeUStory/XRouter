@@ -100,7 +100,7 @@ class XRouterScanner {
             moduleName = noGroupResult[1];
             version = noGroupResult[2];
           }
-        }else{
+        } else {
           group = matchResult[1];
           moduleName = matchResult[2];
           version = matchResult[3];

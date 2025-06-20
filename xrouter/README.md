@@ -14,12 +14,16 @@
 
 ### 步骤1：安装说明
 ```
-   1.1 在 hvigor-config.json5中添加插件-> "xrouter-plugin": "1.0.9", 
-     配置插件：
+   1.1 在 hvigor-config.json5中添加插件-> "xrouter-plugin": "1.0.11", 
+     具体请使用最新版本：https://www.npmjs.com/package/xrouter-plugin 
+     
+     在项目入口module的hvigorfile.ts中配置插件：
+     import { XRouterPlugin } from 'xrouter-plugin'
      export default {
        system: hapTasks,
        plugins: [XRouterPlugin()]
      }
+     
    1.2 安装依赖-> ohpm install @ustory/xrouter
 ```
 
@@ -79,3 +83,41 @@
 XRouterNavigator.push('native://demo',123)
 ```
 
+### 注意事项
+- 注解方式不支持解析字节码HAR ,此时需要采用手动注册方式,具体可以代理 XRouterConfig
+
+```
+  例子：
+  async proxyXRouterConfig(path:string){
+    switch (path){
+      case "native://custom":{
+        await import('./CustomInitialize')
+        break;
+      }
+    }
+    XRouterConfig.initialize(path)
+  }
+  
+  XRouterManager.getInstance().bindRouteConfig(this.proxyXRouterConfig)
+  
+ 
+```
+
+```
+  //CustomInitialize.ets 内容
+  import { XRouterManager } from '@ustory/xrouter'
+  import { CustomPage } from './CustomPage'
+  
+  @Builder
+  function XRouterBuilder(param:Object) {
+    CustomPage({pageParam: param})
+  }
+  
+  function init(){
+    XRouterManager.getInstance().register('native://custom', wrapBuilder<Object[]>(XRouterBuilder))
+  }
+  
+  init()
+```
+
+- 2. 路由构建会有缓存信息，如果插件升级导致一直生成失败，可以将项目目录下.cache 删除，再次重试

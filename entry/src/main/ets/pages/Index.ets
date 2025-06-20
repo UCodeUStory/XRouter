@@ -8,8 +8,20 @@ struct Index {
   pageInfos: NavPathStack = new NavPathStack()
 
   aboutToAppear(): void {
-    XRouterManager.getInstance().bindNavPathStack(this.pageInfos).bindRouteConfig(XRouterConfig.initialize)
+    XRouterManager.getInstance().bindNavPathStack(this.pageInfos).bindRouteConfig(this.proxyXRouterConfig)
   }
+
+  async proxyXRouterConfig(path:string){
+    switch (path){
+      case "native://custom":{
+        await import('./CustomInitialize')
+        break;
+      }
+    }
+    XRouterConfig.initialize(path)
+  }
+
+
 
   build() {
     Navigation(this.pageInfos) {
