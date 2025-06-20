@@ -54,9 +54,9 @@ export class XRouterManager {
     return this._routeMaps.get(name);
   }
 
-  public push(path: string, params: Object | undefined) {
+  public push(path: string, params: Object | undefined,animated?:boolean) {
     this.checkRouterPath(path, () => {
-      this._navPathStack?.pushPathByName(path, params)
+      this._navPathStack?.pushPathByName(path, params,animated)
     })
   }
 

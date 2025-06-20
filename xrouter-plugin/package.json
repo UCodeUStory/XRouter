@@ -1,6 +1,6 @@
 {
   "name": "xrouter-plugin",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "路由生成插件",
   "main": "index.js",
   "scripts": {
