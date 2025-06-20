@@ -32,8 +32,6 @@ export function XRouterPlugin(): HvigorPlugin {
                 postDependencies: ['default@CreateBuildProfile'],
                 run: (taskContext) => {
                     const startTime = Date.now();
-                    console.log('taskContext.modulePath', taskContext.modulePath)
-
                     const searchContext = new SearchContext(path.dirname(taskContext.modulePath), taskContext.modulePath);
 
                     const xRouterHandler = new InitHandler()

@@ -158,7 +158,6 @@ init()`
   }
 
   generateXRouterConfig() {
-    console.log('generateXRouterConfig>>>')
     const startTime = Date.now();
     const xRouterGenDir = path.join(this.searchContext.entryDir, 'src/main/ets/gen')
     const xRouterConfigFile = path.join(xRouterGenDir, 'XRouterConfig.ets')

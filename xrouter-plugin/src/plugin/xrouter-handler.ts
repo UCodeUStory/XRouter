@@ -34,7 +34,6 @@ export abstract class AbstractXRouterHandler implements XRouterHandler {
 
 export class InitHandler extends AbstractXRouterHandler{
   protected doHandle(context: SearchContext): void {
-    console.log('InitHandler  init')
     this.process(context)
   }
 }
