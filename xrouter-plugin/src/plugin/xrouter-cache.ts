@@ -98,7 +98,7 @@ class XRouterCache {
     let isDup = false;
     const checkDupSet = new Set();
     mergeResult.forEach(model => {
-      const router = model.host + "://" + model.path;
+      const router = (model.host || "native") + "://" + model.path;
       if (checkDupSet.has(router)) {
         console.error('重复的路由为：' + router);
         isDup = true;

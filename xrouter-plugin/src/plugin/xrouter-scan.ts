@@ -97,12 +97,10 @@ class XRouterScanner {
             console.warn(`${file.name} 此库被跳过`)
             return
           } else {
-            console.log('>>>>>>>>>>',JSON.stringify(noGroupResult))
             moduleName = noGroupResult[1];
             version = noGroupResult[2];
           }
         }else{
-          console.log("qiyue", JSON.stringify(matchResult));
           group = matchResult[1];
           moduleName = matchResult[2];
           version = matchResult[3];
