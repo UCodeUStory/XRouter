@@ -108,6 +108,14 @@ class XRouterCache {
     });
     if (isDup) {
       console.error('路由重复，生成路由失败,请检查！！！！');
+      try {
+        const cacheDir = this.getCacheDir(this.searchContext.projectRootDir)
+        if (fs.existsSync(cacheDir)) {
+          fs.rmdirSync(cacheDir,{ recursive: true });
+        }
+      } catch (e) {
+        console.error('删除cache目录异常')
+      }
       throw Error('路由重复，生成路由失败,请检查！！！！');
     }
   }
