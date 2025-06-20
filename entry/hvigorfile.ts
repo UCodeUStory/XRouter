@@ -10,5 +10,5 @@ import { XRouterPlugin } from 'xrouter-plugin'
 
 export default {
   system: hapTasks,
-  plugins: [XRouterPlugin()]
+  plugins: [XRouterPlugin({debugMode:true})]
 }

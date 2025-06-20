@@ -5,6 +5,7 @@ import { Project, SyntaxKind, ScriptTarget, StructureKind, ScriptKind } from "ts
 import * as crypto from 'crypto';
 import { RouteModel, SearchContext, XModule } from "./xrouter-model";
 import { AbstractXRouterHandler } from './xrouter-handler';
+import { Logger } from './xrouter-logger.ts'
 
 export class ScanModulesHandler extends AbstractXRouterHandler {
   protected doHandle(searchContext: SearchContext): void {
@@ -36,12 +37,12 @@ class XRouterScanner {
     const startTime = Date.now();
 
     const libraryResult = this.findXRouterPageByOhModules(this.searchContext)
-    // console.log("libraryResult=", libraryResult)
+    // Logger.get().d("libraryResult=", libraryResult)
     const sourceResult = this.findXRouterPageBySource(this.searchContext)
-    // console.log("sourceResult=", sourceResult)
+    // Logger.get().d("sourceResult=", sourceResult)
     this.searchContext.currentScanNewRouteModels = [...libraryResult, ...sourceResult]
 
-    console.log('findXRouterModels耗时：' + (Date.now() - startTime) + '毫秒')
+    Logger.get().d('findXRouterModels耗时：' + (Date.now() - startTime) + '毫秒')
   }
 
 
@@ -66,7 +67,7 @@ class XRouterScanner {
       xModule.name = module.name;
       xModule.dir = moduleDir;
       modulePaths.push(xModule)
-      // console.log('moduleDir=', moduleDir)
+      // Logger.get().d('moduleDir=', moduleDir)
     }
     //查找符合条件的页面
     for (let modulePath of modulePaths) {
@@ -94,7 +95,7 @@ class XRouterScanner {
           const noGroup = /([^@]+)@(.+)/;
           const noGroupResult = file.name.match(noGroup);
           if (!noGroupResult || noGroupResult.length < 3) {
-            console.warn(`${file.name} 此库被跳过`)
+            Logger.get().d(`${file.name} 此库被跳过`)
             return
           } else {
             moduleName = noGroupResult[1];
@@ -105,9 +106,9 @@ class XRouterScanner {
           moduleName = matchResult[2];
           version = matchResult[3];
         }
-        // console.log('group=', group, 'moduleName=', moduleName, 'version=', version)
+        // Logger.get().d('group=', group, 'moduleName=', moduleName, 'version=', version)
         const moduleDir = oh_modules_ohpm + '/' + file.name + '/oh_modules' + '/' + group + '/' + moduleName;
-        // console.log('moduleDir=', moduleDir)
+        // Logger.get().d('moduleDir=', moduleDir)
         this.findXRouterPageByPath(searchContext, group, moduleName, version, moduleDir, moduleResult)
       }
     })
@@ -122,9 +123,9 @@ class XRouterScanner {
       //TODO以下内容比较耗时，所以想文件没有变动情况下就不再重新解析
       const hash = this.getFileHash(currentPath)
 
-      // console.log('searchContext.fileCaches',searchContext.fileCaches)
+      // Logger.get().d('searchContext.fileCaches',searchContext.fileCaches)
       if (searchContext.fileCaches.get(currentPath) === hash) {
-        // console.log('已经解析过', currentPath, 'hash=', hash)
+        // Logger.get().d('已经解析过', currentPath, 'hash=', hash)
         searchContext.currentScanFiles.set(currentPath, hash);
         return;
       }
@@ -215,7 +216,7 @@ class XRouterScanner {
       for (const decorator of decorators) {
         if (decorator.getName() === 'XRouteParam') {
           const paramName = prop.getName();
-          // console.log('XRouteParam>>>> 找到了',paramName)
+          // Logger.get().d('XRouteParam>>>> 找到了',paramName)
           routeModel.paramName = paramName;
         }
       }
@@ -261,7 +262,7 @@ class XRouterScanner {
       }
     }
     routeModel.filePath = filePath
-    // console.log('找到一个 routeModel=', routeModel);
+    // Logger.get().d('找到一个 routeModel=', routeModel);
     return routeModel;
   }
 

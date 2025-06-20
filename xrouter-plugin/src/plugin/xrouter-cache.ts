@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { AbstractXRouterHandler } from './xrouter-handler';
 import { SearchContext } from "./xrouter-model";
+import { Logger } from './xrouter-logger.ts'
 
 const CACHE_FILE = 'xrouter_cache.json'
 const MODEL_CACHE_FILE = 'xrouter_model_cache.json'
@@ -17,7 +18,7 @@ export class ReadCacheHandler extends AbstractXRouterHandler {
 
 export class WriteCacheHandler extends AbstractXRouterHandler {
   protected doHandle(searchContext: SearchContext): void {
-    console.log('WriteCacheHandler')
+    Logger.get().d('WriteCacheHandler')
     const routerCache = new XRouterCache(searchContext);
     routerCache.writeCacheFile()
     this.process(searchContext)
@@ -58,10 +59,10 @@ class XRouterCache {
       this.searchContext.routeModelCaches = routeModelCaches
     } catch (e) {
       this.searchContext.routeModelCaches = []
-      console.log('readCacheFile read failed')
+      Logger.get().d('readCacheFile read failed')
     }
 
-    console.log('readCacheFile耗时：' + (Date.now() - startTime) + '毫秒')
+    Logger.get().d('readCacheFile耗时：' + (Date.now() - startTime) + '毫秒')
   }
 
   writeCacheFile() {
@@ -80,7 +81,7 @@ class XRouterCache {
 
     fs.writeFileSync(modelCacheFile, JSON.stringify(mergeResult), { encoding: 'utf8' });
 
-    console.log('写入缓存文件耗时：' + (Date.now() - startTime) + '毫秒')
+    Logger.get().d('写入缓存文件耗时：' + (Date.now() - startTime) + '毫秒')
   }
 
   private initCacheDir() {

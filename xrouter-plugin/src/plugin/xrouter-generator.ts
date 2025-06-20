@@ -2,6 +2,8 @@ import { RouteModel, SearchContext } from "./xrouter-model";
 import * as fs from 'fs';
 import * as path from 'path';
 import { AbstractXRouterHandler } from "./xrouter-handler";
+import { Logger } from './xrouter-logger.ts'
+
 
 const DEFAULT_HOST = 'native'
 const GEN_DIR = 'src/main/ets/gen'
@@ -47,7 +49,7 @@ class XRouterGenerator {
     // 过滤掉不存在的RouterModel缓存
     this.searchContext.routeModelCaches = this.searchContext.routeModelCaches.filter((m: any) => {
       if (!scanFileHashSet.has(m.fileHash)) {
-        console.log('删除fileHash', m.fileHash);
+        Logger.get().d('删除fileHash', m.fileHash);
 
         // 构造文件路径
         const xRouterInitializeFile = path.join(
@@ -58,7 +60,7 @@ class XRouterGenerator {
         // 删除物理文件
         if (fs.existsSync(xRouterInitializeFile)) {
           fs.unlinkSync(xRouterInitializeFile);
-          console.log("文件已删除:", xRouterInitializeFile);
+          Logger.get().d("文件已删除:", xRouterInitializeFile);
         }
 
         return false; // 从数组中移除
@@ -135,7 +137,7 @@ init()`
     const generateDir = this.getRouteGenerateDir();
     const entryName = path.basename(this.searchContext.entryDir);
     this.generateRouteInitializeFiles(generateDir, entryName, this.searchContext.currentScanNewRouteModels)
-    // console.log('generateNewRouteInitializeFiles耗时：' + (Date.now() - startTime) + '毫秒');
+    Logger.get().d('generateNewRouteInitializeFiles耗时：' + (Date.now() - startTime) + '毫秒');
   }
 
   //因为有可能被意外删除，所以要判断文件是否存在，重新生成
@@ -154,7 +156,7 @@ init()`
     }
     this.generateRouteInitializeFiles(generateDir, entryName, loseRouteModel)
 
-    console.log('generateNewRouteInitializeFiles耗时：' + (Date.now() - startTime) + '毫秒');
+    Logger.get().d('generateNewRouteInitializeFiles耗时：' + (Date.now() - startTime) + '毫秒');
   }
 
   generateXRouterConfig() {
@@ -184,7 +186,7 @@ export class XRouterConfig {
     fs.writeFileSync(xRouterConfigFile, xRouterConfigFileContent, { encoding: 'utf8' });
     const endTime = Date.now();
     const totalTime = endTime - startTime;
-    console.log('generateXRouterConfig耗时：' + totalTime + '毫秒');
+    Logger.get().d('generateXRouterConfig耗时：' + totalTime + '毫秒');
 
   }
 }
