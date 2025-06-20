@@ -22,6 +22,8 @@ interface XRouterOption {
   debugMode?: boolean
 }
 
+
+
 export function XRouterPlugin(option?:XRouterOption): HvigorPlugin {
   return {
     pluginId: 'XRouterPlugin',

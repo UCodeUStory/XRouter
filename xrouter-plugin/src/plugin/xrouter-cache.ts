@@ -3,14 +3,18 @@ import * as path from 'path';
 import { AbstractXRouterHandler } from './xrouter-handler';
 import { SearchContext } from "./xrouter-model";
 import { Logger } from './xrouter-logger.ts'
+import { version } from './xrouter-constants.ts'
 
 const CACHE_FILE = 'xrouter_cache.json'
 const MODEL_CACHE_FILE = 'xrouter_model_cache.json'
+const XROUTER_PLUGIN_INFO_FILE = 'xrouter_plugin_info.json'
 
 
 export class ReadCacheHandler extends AbstractXRouterHandler {
   protected doHandle(searchContext: SearchContext): void {
+
     const routerCache = new XRouterCache(searchContext);
+    routerCache.checkVersionForClear()
     routerCache.readCache()
     this.process(searchContext)
   }
@@ -38,6 +42,25 @@ class XRouterCache {
     this.initCacheDir()
     //读取缓存信息
     this.readCacheFile();
+  }
+
+  //插件升级要清理
+  checkVersionForClear() {
+    try {
+      const cacheDir = this.getCacheDir(this.searchContext.projectRootDir);
+      const cacheFile = path.join(cacheDir, XROUTER_PLUGIN_INFO_FILE);
+      const fileContent = fs.readFileSync(cacheFile, 'utf8');
+      const dataInfo = JSON.parse(fileContent)
+      const cacheVersion = dataInfo.version;
+      Logger.get().d('version:', cacheVersion, 'curVersion:', version)
+      if (cacheVersion !== version) {
+        this.clearCache()
+        Logger.get().d('插件升级清理缓存')
+      }
+    } catch (_) {
+      //
+    }
+
   }
 
   private readCacheFile() {
@@ -81,6 +104,9 @@ class XRouterCache {
 
     fs.writeFileSync(modelCacheFile, JSON.stringify(mergeResult), { encoding: 'utf8' });
 
+    const xRouterPluginInfoFile = path.join(cacheDir, XROUTER_PLUGIN_INFO_FILE)
+    fs.writeFileSync(xRouterPluginInfoFile, JSON.stringify({ "version": version }), { encoding: 'utf8' });
+
     Logger.get().d('写入缓存文件耗时：' + (Date.now() - startTime) + '毫秒')
   }
 
@@ -109,15 +135,19 @@ class XRouterCache {
     });
     if (isDup) {
       console.error('路由重复，生成路由失败,请检查！！！！');
-      try {
-        const cacheDir = this.getCacheDir(this.searchContext.projectRootDir)
-        if (fs.existsSync(cacheDir)) {
-          fs.rmdirSync(cacheDir,{ recursive: true });
-        }
-      } catch (e) {
-        console.error('删除cache目录异常')
-      }
+      this.clearCache()
       throw Error('路由重复，生成路由失败,请检查！！！！');
+    }
+  }
+
+  private clearCache() {
+    try {
+      const cacheDir = this.getCacheDir(this.searchContext.projectRootDir)
+      if (fs.existsSync(cacheDir)) {
+        fs.rmdirSync(cacheDir, { recursive: true });
+      }
+    } catch (e) {
+      console.error('删除cache目录异常')
     }
   }
 }
