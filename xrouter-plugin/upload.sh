@@ -35,3 +35,5 @@ else
   echo "Error: Failed to update version in $constants_file"
   exit 1
 fi
+
+npm publish
