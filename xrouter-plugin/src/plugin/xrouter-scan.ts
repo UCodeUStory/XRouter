@@ -34,16 +34,13 @@ class XRouterScanner {
 
   findXRouterModels() {
     const startTime = Date.now();
-    try {
-      const libraryResult = this.findXRouterPageByOhModules(this.searchContext)
-      // console.log("libraryResult=", libraryResult)
-      const sourceResult = this.findXRouterPageBySource(this.searchContext)
-      // console.log("sourceResult=", sourceResult)
-      this.searchContext.currentScanNewRouteModels = [...libraryResult, ...sourceResult]
-    } catch (e) {
-      this.searchContext.currentScanNewRouteModels = []
-      // console.log('findXRouterModels failed：', e)
-    }
+
+    const libraryResult = this.findXRouterPageByOhModules(this.searchContext)
+    // console.log("libraryResult=", libraryResult)
+    const sourceResult = this.findXRouterPageBySource(this.searchContext)
+    // console.log("sourceResult=", sourceResult)
+    this.searchContext.currentScanNewRouteModels = [...libraryResult, ...sourceResult]
+
     console.log('findXRouterModels耗时：' + (Date.now() - startTime) + '毫秒')
   }
 
@@ -87,15 +84,29 @@ class XRouterScanner {
     // const moduleFiles = await fs.readdir(oh_modules_ohpm, { withFileTypes: true });
     moduleFiles.forEach(file => {
       if (file.isDirectory()) {
+        let group = ""
+        let moduleName = ""
+        let version = ""
         const regex = /([^+]+)\+([^@]+)@(.+)/;
         const matchResult = file.name.match(regex);
         if (!matchResult || matchResult.length < 4) {
-          console.warn(`${file.name} 此库被跳过`)
-          return
+          //无组织的库，和本地har包解析
+          const noGroup = /([^@]+)@(.+)/;
+          const noGroupResult = file.name.match(noGroup);
+          if (!noGroupResult || noGroupResult.length < 3) {
+            console.warn(`${file.name} 此库被跳过`)
+            return
+          } else {
+            console.log('>>>>>>>>>>',JSON.stringify(noGroupResult))
+            moduleName = noGroupResult[1];
+            version = noGroupResult[2];
+          }
+        }else{
+          console.log("qiyue", JSON.stringify(matchResult));
+          group = matchResult[1];
+          moduleName = matchResult[2];
+          version = matchResult[3];
         }
-        const group = matchResult[1];
-        const moduleName = matchResult[2];
-        const version = matchResult[3];
         // console.log('group=', group, 'moduleName=', moduleName, 'version=', version)
         const moduleDir = oh_modules_ohpm + '/' + file.name + '/oh_modules' + '/' + group + '/' + moduleName;
         // console.log('moduleDir=', moduleDir)
@@ -133,7 +144,6 @@ class XRouterScanner {
           routeModel.srcPath = this.getRelativeEtsPath(currentPath, group, moduleName);
         }
         result.push(routeModel);
-        // console.log('routeModel=', routeModel)
       }
     } else if (stats.isDirectory()) {
       const files = fs.readdirSync(currentPath);

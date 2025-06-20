@@ -82,7 +82,12 @@ class XRouterGenerator {
           `XRouter${(routeModel.host ?? DEFAULT_HOST).capitalize()}${routeModel.path.capitalize()}Initialize.ets`)
       let packagePath = ''
       if (routeModel.group !== 'source') {
-        packagePath = `${routeModel.group}/${routeModel.moduleName}/${routeModel.srcPath}`
+        if (routeModel.group === '') {
+          //无组织去掉斜杠
+          packagePath = `${routeModel.moduleName}/${routeModel.srcPath}`
+        } else {
+          packagePath = `${routeModel.group}/${routeModel.moduleName}/${routeModel.srcPath}`
+        }
       } else {
         packagePath = `${routeModel.moduleName}/${routeModel.srcPath}`
         //当前entry 下 不能模块引用
@@ -130,7 +135,7 @@ init()`
     const generateDir = this.getRouteGenerateDir();
     const entryName = path.basename(this.searchContext.entryDir);
     this.generateRouteInitializeFiles(generateDir, entryName, this.searchContext.currentScanNewRouteModels)
-    console.log('generateNewRouteInitializeFiles耗时：' + (Date.now() - startTime) + '毫秒');
+    // console.log('generateNewRouteInitializeFiles耗时：' + (Date.now() - startTime) + '毫秒');
   }
 
   //因为有可能被意外删除，所以要判断文件是否存在，重新生成
