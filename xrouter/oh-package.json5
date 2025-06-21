@@ -7,5 +7,6 @@
   "license": "Apache-2.0",
   "homepage": "https://github.com/UCodeUStory",
   "repository": "https://github.com/UCodeUStory/XRouter",
+  "keywords": ['router','xRouter','动态路由','鸿蒙路由','注解路由'],
   "dependencies": {}
 }
