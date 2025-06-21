@@ -1,5 +1,5 @@
 {
-  "name": "entry",
+  "name": "example",
   "version": "1.0.0",
   "description": "Please describe the basic information.",
   "main": "",
@@ -10,4 +10,3 @@
     "sample_library": "file:../sample_library"
   }
 }
-

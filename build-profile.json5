@@ -41,8 +41,8 @@
   },
   "modules": [
     {
-      "name": "entry",
-      "srcPath": "./entry",
+      "name": "example",
+      "srcPath": "./example",
       "targets": [
         {
           "name": "default",
