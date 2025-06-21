@@ -1,5 +1,4 @@
 export class SearchContext {
-
   readonly projectRootDir: string;
 
   readonly entryDir: string;
@@ -11,6 +10,8 @@ export class SearchContext {
   currentScanFiles: Map<string, string> = new Map();
   //新增路由缓存
   currentScanNewRouteModels: Array<RouteModel> = new Array();
+  //输出路径
+  genDir: string = 'src/main/ets/gen'
 
   allRouteModels(): Array<RouteModel> {
     const m = [...this.routeModelCaches, ...this.currentScanNewRouteModels];

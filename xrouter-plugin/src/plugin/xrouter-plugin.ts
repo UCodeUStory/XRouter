@@ -20,11 +20,11 @@ import { Logger } from './xrouter-logger.ts'
 
 interface XRouterOption {
   debugMode?: boolean
+  genDir?: string
 }
 
 
-
-export function XRouterPlugin(option?:XRouterOption): HvigorPlugin {
+export function XRouterPlugin(option?: XRouterOption): HvigorPlugin {
   return {
     pluginId: 'XRouterPlugin',
     apply(node: HvigorNode) {
@@ -38,6 +38,9 @@ export function XRouterPlugin(option?:XRouterOption): HvigorPlugin {
           Logger.get().debugMode = option?.debugMode || false;
           console.log("----------欢迎使用XRouter--------")
           const searchContext = new SearchContext(path.dirname(taskContext.modulePath), taskContext.modulePath);
+          if (option && option.genDir) {
+            searchContext.genDir = option.genDir;
+          }
 
           const xRouterHandler = new InitHandler()
           xRouterHandler.setNext(new ReadCacheHandler())

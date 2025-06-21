@@ -7,3 +7,4 @@ oh-package-lock.json5
 
 .DS_Store
 /xrouter-plugin/node_modules
+/.cache

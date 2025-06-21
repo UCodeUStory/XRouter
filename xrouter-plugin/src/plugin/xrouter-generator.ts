@@ -6,7 +6,6 @@ import { Logger } from './xrouter-logger.ts'
 
 
 const DEFAULT_HOST = 'native'
-const GEN_DIR = 'src/main/ets/gen'
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
@@ -39,7 +38,7 @@ class XRouterGenerator {
   }
 
   clearGenerateFiles() {
-    const xRouterGenDir = path.join(this.searchContext.entryDir, GEN_DIR)
+    const xRouterGenDir = path.join(this.searchContext.entryDir, this.searchContext.genDir)
     const scanFileHashSet = new Set();
     //所有扫描过的文件
     this.searchContext.currentScanFiles.forEach((value, key) => {
@@ -72,7 +71,7 @@ class XRouterGenerator {
   }
 
   getRouteGenerateDir() {
-    const xRouterGenDir = path.join(this.searchContext.entryDir, GEN_DIR)
+    const xRouterGenDir = path.join(this.searchContext.entryDir, this.searchContext.genDir)
     fs.mkdirSync(xRouterGenDir, { recursive: true });
     return xRouterGenDir;
   }
@@ -94,7 +93,7 @@ class XRouterGenerator {
         packagePath = `${routeModel.moduleName}/${routeModel.srcPath}`
         //当前entry 下 不能模块引用
         if (routeModel.moduleName === entryName) {
-          packagePath = path.relative(GEN_DIR, routeModel.srcPath)
+          packagePath = path.relative(this.searchContext.genDir, routeModel.srcPath)
         }
       }
 
@@ -161,7 +160,7 @@ init()`
 
   generateXRouterConfig() {
     const startTime = Date.now();
-    const xRouterGenDir = path.join(this.searchContext.entryDir, 'src/main/ets/gen')
+    const xRouterGenDir = path.join(this.searchContext.entryDir, this.searchContext.genDir)
     const xRouterConfigFile = path.join(xRouterGenDir, 'XRouterConfig.ets')
     const allRouteModels = this.searchContext.allRouteModels()
     let insertCodes = ''
