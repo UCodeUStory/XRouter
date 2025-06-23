@@ -14,7 +14,7 @@
 
 ### 步骤1：安装说明
 ```
-   1.1 在 hvigor-config.json5中添加插件-> "xrouter-plugin": "1.0.11", 
+   1.1 在 hvigor-config.json5中添加插件-> "xrouter-plugin": "1.0.14", 
      具体请使用最新版本：https://www.npmjs.com/package/xrouter-plugin 
      
      在项目入口module的hvigorfile.ts中配置插件：
