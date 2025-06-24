@@ -1,6 +1,6 @@
 {
   "name": "@ustory/xrouter",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "一个简单好用的动态路由框架",
   "main": "Index.ets",
   "author": "UCodeUStory",

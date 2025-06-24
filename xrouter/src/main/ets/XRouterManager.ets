@@ -1,14 +1,29 @@
+export interface PushOption {
+  param?: Object;
+  animated?: boolean;
+  onPopResult?: (data: Object) => void
+}
+
+export interface PopOption {
+  result?: Object;
+  animated?: boolean;
+}
+
 export class XRouterManager {
   private static instance: XRouterManager;
   private _routeMaps: Map<string, WrappedBuilder<Object[]>> = new Map();
   private _navPathStack: NavPathStack | undefined;
+
+  public get navPathStack(): NavPathStack | undefined {
+    return this._navPathStack;
+  }
   private _routeConfig?: ((path: string) => Promise<void>) | undefined = undefined;
 
   private constructor() {
     console.log('XRouterManager 实例已创建');
   }
 
-  private checkRouterPath(path: string, callBack: () => void) {
+  public checkRouterPath(path: string, callBack: () => void) {
     if (this._routeMaps.has(path)) {
       callBack()
     } else {
@@ -21,7 +36,6 @@ export class XRouterManager {
       operation: NavigationOperation, animated: boolean) => {
 
     }
-
   }
 
   public static getInstance(): XRouterManager {
@@ -54,24 +68,5 @@ export class XRouterManager {
     return this._routeMaps.get(name);
   }
 
-  public push(path: string, params: Object | undefined,animated?:boolean) {
-    this.checkRouterPath(path, () => {
-      this._navPathStack?.pushPathByName(path, params,animated)
-    })
-  }
-
-  public pop(animated?: boolean) {
-    this._navPathStack?.pop()
-  }
-
-  public popToRoot(animated?: boolean) {
-    this._navPathStack?.popToIndex(-1, animated);
-  }
-
-  public replace(path: string, params: Object | undefined, animated?: boolean) {
-    this.checkRouterPath(path, () => {
-      this._navPathStack?.replacePathByName(path, params, animated);
-    })
-  }
 
 }
