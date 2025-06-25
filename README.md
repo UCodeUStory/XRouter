@@ -1,4 +1,4 @@
-# Harmony XRouter
+# Harmony XRouter 
 
 ## 介绍
 一个鸿蒙动态路由框架，基于Navigation的路由框架，可以非常方便的使用注解注册，就能实现组件之间的跳转，方便组件的解耦
@@ -56,7 +56,7 @@
 
 ###  步骤3：生成路由配置信息
 
-``XRouterConfig 是动态生成的类，先执行Rebuild project 生成这个信息配置``
+   ``XRouterConfig 是动态生成的类，先执行Rebuild project 生成这个信息配置``
 
 
 ### 步骤4：路由定义及使用
@@ -125,15 +125,16 @@ XRouterNavigator.push('native://demo',{param: 789})
 ## XRouterNavigator API 文档
 ### push
 
-| 参数                 | 类型                        | 说明                                                                                                                         |
-| ------------------ | ------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| url                | `string`                  | 目标页面的路由地址                                                                                                                  |
-| option             | `PushOption`（可选）          | 跳转选项                                                                                                                       |
-| option.param       | `Object`（可选）              | 传递给目标页面的参数                                                                                                                 |
-| option.onPopResult | `(data: any) => void`（可选） | 页面返回时的回调函数，接收返回结果作为参数                                                                                                      |
-| option.animated    | `boolean`（可选）             | 是否启用动画效果                                                                                                                   |
+| 参数                 | 类型                        | 说明                             |
+|--------------------| ------------------------- |--------------------------------|
+| url                | `string`                  | 目标页面的路由地址                      |
+| option             | `PushOption`（可选）          | 跳转选项                           |
+| option.param       | `Object`（可选）              | 传递给目标页面的参数                     |
+| option.onPopResult | `(data: any) => void`（可选） | 接收返回结果作为参数，仅当调用pop相关方法传递参数时才回调 |
+| option.onClose     | `() => void`（可选） | 上一个页面被关闭时回调                       |
+| option.animated    | `boolean`（可选）             | 是否启用动画效果                       |
 
-### pop
+### pop 
 
 | 参数              | 类型              | 说明                                                            |
 | --------------- | --------------- | ------------------------------------------------------------- |
@@ -149,6 +150,16 @@ XRouterNavigator.push('native://demo',{param: 789})
 | option.result   | `any`（可选）       | 返回结果                                                                                                |
 | option.animated | `boolean`（可选）   | 是否启用动画效果                                                                                            |
 
+### popUntil
+
+| 参数              | 类型              | 说明        |
+|-----------------|-----------------|-----------|
+| url             | `string`        | 目标页面的路由地址 |
+| option          | `PopOption`（可选） | 返回选项      
+| option.result   | `any`（可选）       | 返回结果      |
+| option.animated | `boolean`（可选）   | 是否启用动画效果  |
+
+
 ### replace
 
 | 参数       | 类型            | 说明                                                                                                  |
@@ -157,6 +168,7 @@ XRouterNavigator.push('native://demo',{param: 789})
 | params   | `Object`（可选）  | 传递给目标页面的参数                                                                                          |
 | animated | `boolean`（可选） | 是否启用动画效果                                                                                            |
 
+### onPopToRootResult 监听popToRoot携带的返回结果
 
 ## xrouter-plugin API
 
