@@ -10,6 +10,9 @@ struct Index {
 
   aboutToAppear(): void {
     XRouterManager.getInstance().bindNavPathStack(this.pageInfos).bindRouteConfig(this.proxyXRouterConfig)
+    XRouterNavigator.onPopToRootResult = (data) => {
+      promptAction.showToast({ message: JSON.stringify(data), duration: 1000 })
+    }
   }
 
   async proxyXRouterConfig(path: string) {
@@ -29,7 +32,11 @@ struct Index {
         Button('跳转SecondPage').onClick(() => {
           XRouterNavigator.push('native://second', {
             param: 789, onPopResult: (result) => {
-              promptAction.showToast({ message: JSON.stringify(result), duration: 1500 })
+              console.log("ustory home 监听onPopResult->上面页面被关闭")
+              promptAction.showToast({ message: JSON.stringify(result), duration: 1000 })
+            },
+            onClose: () => {
+              console.log("ustory 首页监听->上面页面被关闭")
             }
           })
         }).margin(50)

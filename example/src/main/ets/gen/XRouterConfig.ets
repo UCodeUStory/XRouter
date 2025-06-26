@@ -8,8 +8,16 @@ export class XRouterConfig {
         await import('./XRouterNativeMainPageInitialize')
         break;
     
+      case 'native://fourth':
+        await import('./XRouterNativeFourthInitialize')
+        break;
+    
       case 'native://second':
         await import('./XRouterNativeSecondInitialize')
+        break;
+    
+      case 'native://third':
+        await import('./XRouterNativeThirdInitialize')
         break;
     
     }
