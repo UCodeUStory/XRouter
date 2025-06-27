@@ -5,7 +5,6 @@ export interface PushOption {
   param?: Object;
   animated?: boolean;
   onPopResult?: (data: Object) => void
-  // 监听push页面的关闭回调
   onClose?: () => void
 }
 

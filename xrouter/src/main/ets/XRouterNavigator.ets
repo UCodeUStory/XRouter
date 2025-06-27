@@ -60,7 +60,7 @@ export class XRouterNavigator {
     if (targetIndex === -1) {
       return;
     }
-    // 迁移record 存储了push 回调
+    // 前一个record 存储了push 回调
     const prevRecord = records[targetIndex + 1];
 
     for (let i = length; i > targetIndex; i--) {
